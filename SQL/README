@@ -1,1 +1,48 @@
+Farming Vendor Management System
+CIS 344 – Spring 2026
+Author: Nasir Karim
+Professor: Yanilda Peralta Ramos
+
+Project Overview
+     The Farming Vendor Management System is a relational database that models how a farmer’s market works. It stores information about farmers, products, customers, transactions, and itemized sales. The goal of this project was to design the system from the ground up, create ER diagrams, build the database in MySQL Workbench, and write SQL queries to test and analyze the data.
+     The sample data uses names inspired by One Piece to make the project more engaging while keeping the structure realistic.
+
+Features
+     The system can store farmer information, product details, customer records, and transaction history.
+     It supports itemized sales, foreign key relationships, and multi‑table JOIN queries for analysis.
+     The database is fully normalized and enforces referential integrity.
+
+Database Structure
+  The system includes five main tables:
+      Farmer – stores farmer and farm details
+      Product – stores product names, categories, measurements and prices
+      Customer – stores customer contact information
+      Transaction – stores each purchase made by a customer
+      Transaction_Per_Item – stores each item inside a transaction, including quantity, price at sale, and the farmer who supplied it
+      Foreign keys connect the tables so the system behaves like a real farmer’s market.
+
+ER Diagrams
+   This project includes two ER diagrams in the SQL folder:
+       Chen ER Diagram – conceptual model showing entities, attributes, and relationships
+       UML ER Diagram – logical model created in MySQL Workbench model with crow’s‑foot notation
+  
+
+How to Run the SQL
+    - Open MySQL Workbench
+    - Load the file named farming_vendor_db.sql
+    - Run the script to create all tables and insert sample data
+    - Use the provided queries in the file to explore and test the database
+
+Repository Contents
+   Folder SQL
+         Project Report.doc - contains the documentation process
+         contains Chen and UML diagrams
+         farming_vendor_db.sql – SQL script for creating tables and inserting data
+         FarmingVendor.mwb – MySQL Workbench file
+         Project Final Report.pdf – project report including challenges and outcomes
+         Project.pdf – project overview and instructions
+
+Notes
+The sample data uses One Piece characters for fun, but the database design follows proper relational rules.
+JOIN queries were used to test and validate the system and to show how the tables connect.
 
