@@ -34,13 +34,13 @@ How to Run the SQL
     - Use the provided queries in the file to explore and test the database
 
 Repository Contents
-   Folder SQL
-         Project Report.doc - contains the documentation process
+   Folder: SQL
+         Project Documentation process.doc - contains the documentation process
          contains Chen and UML diagrams
          farming_vendor_db.sql – SQL script for creating tables and inserting data
          FarmingVendor.mwb – MySQL Workbench file
          Project Final Report.doc – project report including challenges and outcomes
-         Project.doc – project overview and instructions
+         Project1.pdf – project overview and instructions
 
 Notes
 The sample data uses One Piece characters for fun, but the database design follows proper relational rules.
