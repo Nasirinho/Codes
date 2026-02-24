@@ -14,17 +14,17 @@ Features
 
 Database Structure
   The system includes five main tables:
-      Farmer – stores farmer and farm details
-      Product – stores product names, categories, measurements and prices
-      Customer – stores customer contact information
-      Transaction – stores each purchase made by a customer
-      Transaction_Per_Item – stores each item inside a transaction, including quantity, price at sale, and the farmer who supplied it
+     - Farmer – stores farmer and farm details
+     - Product – stores product names, categories, measurements and prices
+     - Customer – stores customer contact information
+     - Transaction – stores each purchase made by a customer
+     - Transaction_Per_Item – stores each item inside a transaction, including quantity, price at sale, and the farmer who supplied it
       Foreign keys connect the tables so the system behaves like a real farmer’s market.
 
 ER Diagrams
    This project includes two ER diagrams in the SQL folder:
-       Chen ER Diagram – conceptual model showing entities, attributes, and relationships
-       UML ER Diagram – logical model created in MySQL Workbench model with crow’s‑foot notation
+      - Chen ER Diagram – conceptual model showing entities, attributes, and relationships
+      - UML ER Diagram – logical model created in MySQL Workbench model with crow’s‑foot notation
   
 
 How to Run the SQL
@@ -35,12 +35,12 @@ How to Run the SQL
 
 Repository Contents
    Folder: SQL
-         Project Documentation process.doc - contains the documentation process
-         contains Chen and UML diagrams
-         farming_vendor_db.sql – SQL script for creating tables and inserting data
-         FarmingVendor.mwb – MySQL Workbench file
-         Project Final Report.doc – project report including challenges and outcomes
-         Project1.pdf – project overview and instructions
+        - Project Documentation process.doc - contains the documentation process
+        - contains Chen and UML diagrams
+        - farming_vendor_db.sql – SQL script for creating tables and inserting data
+        - FarmingVendor.mwb – MySQL Workbench file
+        - Project Final Report.doc – project report including challenges and outcomes
+        - Project1.pdf – project overview and instructions
 
 Notes
 The sample data uses One Piece characters for fun, but the database design follows proper relational rules.
