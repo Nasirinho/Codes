@@ -1,39 +1,24 @@
 <?php include("header.php"); ?>
 
+<main class="container">
 
-<div style="
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    margin: 20px 0;
-">
+    <div class="card" style="text-align:center; padding:40px;">
 
-    <img src="https://wallpapers.com/images/hd/luffy-drip-meme-anime-character-thumbs-up-exdmbifajt2vsnva.jpg" 
-         alt="Welcome Luffy" 
-         style="width: 30%; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+        <h1 style="margin-bottom:10px;">Welcome to the Real Estate Agency Portal</h1>
 
-    <div style="width: 40%; text-align: center;">
-        <h2 style="margin-bottom: 10px;">Welcome to Your Real Estate Portal</h2>
-        <p style="font-size: 16px;">
-            Explore luxury homes, modern apartments, and premium rentals.  
-            Whether you're an agent, buyer, or renter — your next home starts here.
+        <p style="font-size:18px; max-width:700px; margin:0 auto;">
+            Browse properties, save your favorites, contact agents, and manage your real estate needs all in one place.
+            Whether you're a buyer, renter, or agent, this system gives you the tools to get things done easily.
         </p>
-        <h3>Project Roles</h3>
-    <ul style="text-align: left;">
-        <li>Agent: add and manage listings</li>
-        <li>Buyer: browse properties and submit inquiries</li>
-        <li>Renter: browse properties and submit inquiries</li>
-    </ul>
-    <p>This is the starter version of the Real Estate Agency Portal for Spring 2026.</p>
-<p>Use this project to practice PHP, MySQL, sessions, authentication, and CRUD operations.</p>
+
+        <div class="index-links">
+            <a href="properties.php" class="btn">View Properties</a>
+            <a href="login.php" class="btn">Login</a>
+            <a href="register.php" class="btn">Register</a>
+        </div>
+
     </div>
 
-    <img src="https://www.themarysue.com/wp-content/uploads/2022/03/chopper-one-piece-straw-hats.jpg" 
-         alt="Welcome Garp" 
-         style="width: 30%; height: 400px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
-
-</div>
-
+</main>
 
 <?php include("footer.php"); ?>

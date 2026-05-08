@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($propertyId > 0 && $messageText !== "") {
         try {
-            $db->inquirySubmitRecord($userId, $propertyId, $messageText);
+            $db->submitInquiry($userId, $propertyId, $messageText);
             $message = "Inquiry submitted successfully.";
         } catch (Throwable $e) {
             $message = "Error: " . $e->getMessage();

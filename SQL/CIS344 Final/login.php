@@ -4,7 +4,7 @@ require_once("RealEstateData.php");
 $message = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $db = new RealEstateDatabase();
+    $db = new RealEstateData();
     $userName = trim($_POST["userName"] ?? "");
     $password = $_POST["password"] ?? "";
 

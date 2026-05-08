@@ -10,7 +10,7 @@ class RealEstateData {
         $this->conn = $db->connect();
     }
 
-    public function userCreate(string $userName, string $contactInfo, string $passwordHash, string $userType): bool {
+    public function addUser(string $userName, string $contactInfo, string $passwordHash, string $userType): bool {
         $stmt = $this->conn->prepare("
             CALL AddOrUpdateUser(NULL, :userName, :contactInfo, :passwordHash, :userType)
         ");
@@ -23,7 +23,7 @@ class RealEstateData {
         ]);
     }
 
-    public function userFetchByName(string $userName) {
+    public function getUserByUsername(string $userName) {
         $stmt = $this->conn->prepare("
             SELECT * FROM Users WHERE userName = :userName LIMIT 1
         ");
@@ -31,7 +31,7 @@ class RealEstateData {
         return $stmt->fetch();
     }
 
-    public function propertyCreate($title, $propertyType, $address, $city, $price, $status, $agentId, $image1, $image2) {
+    public function addProperty($title, $propertyType, $address, $city, $price, $status, $agentId, $image1, $image2) {
         $stmt = $this->conn->prepare("
             INSERT INTO Properties (title, propertyType, address, city, price, status, agentId, image_url, image_url2)
             VALUES (:title, :propertyType, :address, :city, :price, :status, :agentId, :image1, :image2)
@@ -50,14 +50,14 @@ class RealEstateData {
         ]);
     }
 
-    public function propertyCatalog(): array {
+    public function getAllProperties(): array {
         $stmt = $this->conn->query("
             SELECT * FROM PropertyListingView ORDER BY propertyId DESC
         ");
         return $stmt->fetchAll();
     }
 
-    public function propertyFetchOne(int $propertyId) {
+    public function getPropertyById(int $propertyId) {
         $stmt = $this->conn->prepare("
             SELECT * FROM PropertyListingView WHERE propertyId = :id
         ");
@@ -65,7 +65,7 @@ class RealEstateData {
         return $stmt->fetch();
     }
 
-    public function propertyUpdate($id, $title, $propertyType, $address, $city, $price, $status) {
+    public function updateProperty($id, $title, $propertyType, $address, $city, $price, $status) {
         $stmt = $this->conn->prepare("
             UPDATE Properties
             SET title = :title, propertyType = :propertyType, address = :address,
@@ -84,7 +84,7 @@ class RealEstateData {
         ]);
     }
 
-    public function propertyRemove($propertyId) {
+    public function deleteProperty($propertyId) {
 
         $this->conn->prepare("DELETE FROM Transactions WHERE propertyId = :id")
             ->execute([":id" => $propertyId]);
@@ -102,7 +102,7 @@ class RealEstateData {
         return $stmt->execute([":id" => $propertyId]);
     }
 
-    public function propertySearchEngine($city = "", $minPrice = 0, $maxPrice = 0) {
+    public function searchProperties($city = "", $minPrice = 0, $maxPrice = 0) {
         $sql = "SELECT * FROM PropertyListingView WHERE 1=1";
         $params = [];
 
@@ -127,8 +127,7 @@ class RealEstateData {
         return $stmt->fetchAll();
     }
 
-
-    public function inquirySubmitRecord(int $userId, int $propertyId, string $message): bool {
+    public function submitInquiry(int $userId, int $propertyId, string $message): bool {
         $stmt = $this->conn->prepare("
             INSERT INTO Inquiries (userId, propertyId, message, inquiryDate)
             VALUES (:userId, :propertyId, :message, NOW())
@@ -141,7 +140,7 @@ class RealEstateData {
         ]);
     }
 
-    public function inquiryListForAgent($agentId) {
+    public function getAgentInquiries($agentId) {
         $stmt = $this->conn->prepare("
             SELECT i.*, p.title, u.userName
             FROM Inquiries i
@@ -154,8 +153,7 @@ class RealEstateData {
         return $stmt->fetchAll();
     }
 
-
-    public function favoriteAddEntry($userId, $propertyId) {
+    public function addFavorite($userId, $propertyId) {
         $stmt = $this->conn->prepare("
             INSERT INTO Favorites (userId, propertyId, savedDate)
             VALUES (:userId, :propertyId, NOW())
@@ -167,7 +165,7 @@ class RealEstateData {
         ]);
     }
 
-    public function favoriteDropEntry($userId, $propertyId) {
+    public function removeFavorite($userId, $propertyId) {
         $stmt = $this->conn->prepare("
             DELETE FROM Favorites
             WHERE userId = :userId AND propertyId = :propertyId
@@ -179,7 +177,7 @@ class RealEstateData {
         ]);
     }
 
-    public function favoriteListForUser($userId) {
+    public function getFavorites($userId) {
         $stmt = $this->conn->prepare("
             SELECT p.*, u.userName AS agentName
             FROM Favorites f
@@ -192,8 +190,7 @@ class RealEstateData {
         return $stmt->fetchAll();
     }
 
-
-    public function transactionExecuteFlow(int $propertyId, int $userId, string $type, float $amount): bool {
+    public function processTransaction(int $propertyId, int $userId, string $type, float $amount): bool {
         $stmt = $this->conn->prepare("
             CALL ProcessTransaction(:propertyId, :userId, :type, :amount)
         ");

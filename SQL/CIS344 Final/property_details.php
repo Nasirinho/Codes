@@ -1,71 +1,99 @@
 <?php
+session_start();
 require_once("RealEstateData.php");
 
 $db = new RealEstateData();
 
-$propertyId = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
-$property   = $db->propertyFetchOne($propertyId);
+if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
+    die("Invalid property.");
+}
+
+$propertyId = (int)$_GET["id"];
+$property   = $db->getPropertyById($propertyId);
+
+if (!$property) {
+    die("Property not found.");
+}
+
+$userId   = $_SESSION["userId"] ?? null;
+$userType = $_SESSION["userType"] ?? null;
 ?>
 
 <?php include("header.php"); ?>
 
-<h2>Property Details</h2>
+<div class="card">
 
-<?php if (!$property): ?>
-    <p class="error">Property not found.</p>
+    <h2><?= htmlspecialchars($property["title"]) ?></h2>
 
-<?php else: ?>
+    <div style="display:flex; gap:25px; margin-top:20px;">
 
-    <div class="card">
-
-        <div style="display:flex; gap:10px;">
+        <div>
             <?php if (!empty($property["image_url"])): ?>
-                <img src="<?= htmlspecialchars($property["image_url"]) ?>" width="300">
+                <img src="<?= htmlspecialchars($property["image_url"]) ?>" width="350">
             <?php endif; ?>
 
             <?php if (!empty($property["image_url2"])): ?>
-                <img src="<?= htmlspecialchars($property["image_url2"]) ?>" width="300">
+                <img src="<?= htmlspecialchars($property["image_url2"]) ?>" width="350" style="margin-top:10px;">
             <?php endif; ?>
         </div>
 
-        <h3><?= htmlspecialchars($property["title"]) ?></h3>
-        <p><strong>Type:</strong> <?= htmlspecialchars($property["propertyType"]) ?></p>
-        <p><strong>Address:</strong> <?= htmlspecialchars($property["address"]) ?></p>
-        <p><strong>City:</strong> <?= htmlspecialchars($property["city"]) ?></p>
-        <p><strong>Price:</strong> $<?= htmlspecialchars($property["price"]) ?></p>
-        <p><strong>Status:</strong> <?= htmlspecialchars($property["status"]) ?></p>
-        <p><strong>Agent:</strong> <?= htmlspecialchars($property["agentName"]) ?></p>
+        <div>
+            <p><strong>Type:</strong> <?= htmlspecialchars($property["propertyType"]) ?></p>
+            <p><strong>Address:</strong> <?= htmlspecialchars($property["address"]) ?></p>
+            <p><strong>City:</strong> <?= htmlspecialchars($property["city"]) ?></p>
+            <p><strong>Price:</strong> $<?= htmlspecialchars($property["price"]) ?></p>
+            <p><strong>Status:</strong> <?= htmlspecialchars($property["status"]) ?></p>
+            <p><strong>Agent:</strong> <?= htmlspecialchars($property["agentName"]) ?></p>
 
+            <?php if ($userId && $userType === "buyer"): ?>
+                <a class="btn" href="add_favorite.php?id=<?= $propertyId ?>">Add to Favorites</a>
+            <?php endif; ?>
+
+            <?php if ($userId && $userType === "buyer"): ?>
+                <a class="btn" href="#inquiryForm">Send Inquiry</a>
+            <?php endif; ?>
+
+            <?php if ($userId && $userType === "buyer" && $property["status"] === "available"): ?>
+                <form action="process_transaction.php" method="POST" style="margin-top:15px;">
+                    <input type="hidden" name="propertyId" value="<?= $propertyId ?>">
+                    <input type="hidden" name="type" value="buy">
+                    <input type="hidden" name="amount" value="<?= $property["price"] ?>">
+                    <button class="btn" type="submit">Buy Property</button>
+                </form>
+
+                <form action="process_transaction.php" method="POST" style="margin-top:10px;">
+                    <input type="hidden" name="propertyId" value="<?= $propertyId ?>">
+                    <input type="hidden" name="type" value="rent">
+                    <input type="hidden" name="amount" value="<?= $property["price"] ?>">
+                    <button class="btn" type="submit">Rent Property</button>
+                </form>
+            <?php endif; ?>
+
+            <?php if ($userId && $userType === "agent" && $property["agentId"] == $userId): ?>
+                <a class="btn" href="edit_property.php?id=<?= $propertyId ?>">Edit Property</a>
+                <a class="btn" href="delete_property.php?id=<?= $propertyId ?>" 
+                   onclick="return confirm('Are you sure you want to delete this property?');">
+                   Delete Property
+                </a>
+            <?php endif; ?>
+
+        </div>
     </div>
+</div>
 
-    <?php
-    $user = $_SESSION["user"] ?? null;
-    $isBuyerOrRenter = $user && in_array($user["userType"], ["buyer", "renter"], true);
-    $isAvailable = $property["status"] === "available";
-    ?>
+<?php if ($userId && $userType === "buyer"): ?>
+<div class="card" id="inquiryForm">
+    <h3>Send Inquiry</h3>
 
-    <?php if ($isBuyerOrRenter && $isAvailable): ?>
+    <form method="POST" action="submit_inquiry.php">
+        <input type="hidden" name="propertyId" value="<?= $propertyId ?>">
 
-        <a href="submit_inquiry.php?propertyId=<?= (int)$property["propertyId"] ?>">Submit Inquiry</a>
+        <label>Your Message</label>
+        <textarea name="message" rows="4" required></textarea>
 
-        <a href="add_favorite.php?id=<?= (int)$property["propertyId"] ?>">Save to Favorites</a>
-
-        <form method="POST" action="process_transaction.php">
-            <input type="hidden" name="propertyId" value="<?= (int)$property["propertyId"] ?>">
-            <input type="hidden" name="type" value="sale">
-            <input type="hidden" name="amount" value="<?= (float)$property["price"] ?>">
-            <button type="submit">Buy Property</button>
-        </form>
-
-        <form method="POST" action="process_transaction.php">
-            <input type="hidden" name="propertyId" value="<?= (int)$property["propertyId"] ?>">
-            <input type="hidden" name="type" value="rent">
-            <input type="hidden" name="amount" value="<?= (float)$property["price"] ?>">
-            <button type="submit">Rent Property</button>
-        </form>
-
-    <?php endif; ?>
-
+        <button class="btn" type="submit">Submit Inquiry</button>
+    </form>
+</div>
 <?php endif; ?>
 
 <?php include("footer.php"); ?>
