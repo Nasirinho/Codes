@@ -1,0 +1,161 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #eef1f6;
+    color: #333;
+    line-height: 1.6;
+}
+
+main, .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+header {
+    background: linear-gradient(135deg, #1f3c88, #2d5dcc);
+    color: white;
+    padding: 25px 0 35px 0;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+nav {
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+nav a {
+    display: inline-block;
+    padding: 10px 20px;
+    background: white;
+    color: #1f3c88;
+    font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    border: 2px solid transparent;
+}
+
+nav a:hover {
+    background: #1f3c88;
+    color: white;
+    border-color: white;
+    transform: translateY(-2px);
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    transition: 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+}
+
+.card img {
+    border-radius: 10px;
+    max-width: 100%;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+input, select, textarea {
+    width: 100%;
+    max-width: 550px;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fafafa;
+    transition: 0.2s ease;
+    font-size: 15px;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #1f3c88;
+    background: white;
+}
+
+button, .btn {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 12px 20px;
+    background: #1f3c88;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.25s ease;
+    text-decoration: none;
+}
+
+button:hover, .btn:hover {
+    background: #16306c;
+    transform: translateY(-2px);
+}
+
+a {
+    color: #1f3c88;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.index-links {
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+}
+
+.index-links .btn {
+    padding: 14px 22px;
+    font-size: 16px;
+}
+
+.success {
+    color: #1e8c4d;
+    font-weight: bold;
+}
+
+.error {
+    color: #c0392b;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    margin-top: 50px;
+    background: #dfe3eb;
+    color: #555;
+    font-size: 14px;
+}
