@@ -1,6 +1,6 @@
-CIS344-Final-Project
+CIS344 Final Project
 
-By Aboubacar Tounkara
+By Nasir Karim
 
 Real Estate Agency Portal
 
