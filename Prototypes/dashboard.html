@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+    .card {
+      background: white;
+      padding: 20px;
+      margin: 15px;
+      border-radius: 10px;
+      width: 200px;
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    button {
+      padding: 10px;
+      background: #4a6cf7;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Your Digital Afterlife Dashboard</h2>
+
+<div class="card">
+  <h3>Photos</h3>
+  <p>120 items</p>
+  <button onclick="manage('photos')">Manage</button>
+</div>
+
+<div class="card">
+  <h3>Documents</h3>
+  <p>45 items</p>
+  <button onclick="manage('documents')">Manage</button>
+</div>
+
+<div class="card">
+  <h3>Emails</h3>
+  <p>Linked Gmail</p>
+  <button onclick="manage('emails')">Manage</button>
+</div>
+
+<script>
+  function manage(type) {
+    window.location.href = "manage.html?type=" + type;
+  }
+</script>
+
+</body>
+</html>
